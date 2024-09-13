@@ -8,125 +8,103 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class PlayerAction {
-  BattleLog logger = new BattleLog();
-  Random random = new Random();
-  Scanner sc = new Scanner(System.in);
-  private final int point = 13;
+  private final BattleLog logger = new BattleLog();
+  private final Random random = new Random();
+  private final Scanner sc = new Scanner(System.in);
+  private static final int POINT = 13;
 
-  public void setPlayerStatus(Player player){
+  public void setPlayerStatus(Player player) {
     logger.dividingLine();
-    logger.printSetStatus(this.point);
+    logger.printSetStatus(POINT);
 
-    while(true){
-      int hp, ad, ap;
-      while(true){
-        try{
-          hp = sc.nextInt();
-          ad = sc.nextInt();
-          ap = sc.nextInt();
-          sc.nextLine();
-          if(hp < 0 || ad < 0 || ap < 0){
-            logger.printSetStatusNegativeError();
-            continue;
-          }
-          break;
-        }
-        catch(InputMismatchException err){
-          logger.printSetStatusTypeError();
-          sc.nextLine();
+    while (true) {
+      try {
+        int hp = sc.nextInt();
+        int ad = sc.nextInt();
+        int ap = sc.nextInt();
+        sc.nextLine();
+
+        if (hp < 0 || ad < 0 || ap < 0) {
+          logger.printSetStatusNegativeError();
           continue;
         }
-      }
 
-      int sum = hp + ad + ap;
-      if(sum != point){
-        logger.printSetStatusSumError(this.point);
-        continue;
-      }
-      else{
+        if (hp + ad + ap != POINT) {
+          logger.printSetStatusSumError(POINT);
+          continue;
+        }
+
         player.addPoint(hp, ad, ap);
         break;
+      } catch (InputMismatchException e) {
+        logger.printSetStatusTypeError();
+        sc.nextLine();
+      }
+    }
+  }
+
+  public void attack(Player player, Enemy enemy, int idx) {
+    int inputKey;
+    while (true) {
+      try {
+        logger.dividingLine();
+        logger.printPlayerChoice(idx);
+        String input = sc.nextLine();
+
+        if (input.equals("exit")) {
+          logger.printEnd();
+          System.exit(0);
+        }
+
+        inputKey = Integer.parseInt(input);
+        if (inputKey < 1 || inputKey > 4) {
+          logger.printPlayerChoiceOutOfRange();
+        } else {
+          break;
+        }
+      } catch (NumberFormatException e) {
+        logger.printTypeError();
       }
     }
 
+    switch (inputKey) {
+      case 1 -> checkStatus(player, enemy);
+      case 2 -> basicAttack(player, enemy);
+      case 3 -> magicAttack(player, enemy);
+      case 4 -> heal(player);
+    }
   }
 
-  private void checkStatus(Player player, Enemy enemy){
+  private void checkStatus(Player player, Enemy enemy) {
     logger.printPlayerInfo(player);
     logger.printEnemyInfo(enemy);
 
-    int damage = player.attackPower - enemy.adDefence;
+    int damage = player.getAttackPower() - enemy.getDefense();
     enemy.decreaseHp(damage);
 
     logger.printNormalAttackDamage(damage);
   }
 
-  private void basicAttack(Player player, Enemy enemy){
-    int randomInt = random.nextInt(10) + 1;
-
-    if(randomInt > 2){
-      int damage = player.attackPower - enemy.adDefence;
-      enemy.decreaseHp(damage);
+  private void basicAttack(Player player, Enemy enemy) {
+    int damage = player.getAttackPower() - enemy.getDefense();
+    if (random.nextInt(10) + 1 > 2) {
       logger.printNormalAttackDamage(damage);
-    }
-    else{
-      int damage = (player.attackPower - enemy.adDefence) * 2;
-      enemy.decreaseHp(damage);
+    } else {
+      damage *= 2;
       logger.printCriticalAttackDamage(damage);
     }
-  }
-
-  private void magicAttack(Player player, Enemy enemy){
-    int damage = player.magicPower * 2 - enemy.apDefence;
     enemy.decreaseHp(damage);
+  }
+
+  private void magicAttack(Player player, Enemy enemy) {
+    int damage = player.getMagicPower() * 2 - enemy.getMagicDefense();
     logger.printMagicAttackDamage(damage);
+    enemy.decreaseHp(damage);
   }
 
-  private void heal(Player player){
-    int randomInt = random.nextInt(6) + 5;
-    player.increaseHp(randomInt);
-    logger.printPlayerHp(player.hp);
-  }
-
-  public void attack(Player player, Enemy enemy, int idx){
-    int inputKey;
-    while(true){
-      try{
-        logger.dividingLine();
-        logger.printPlayerChoice(idx);
-        String input = sc.nextLine();
-
-        if(input.equals("exit")){
-          logger.printEnd();
-          System.exit(0);
-        }
-        else{
-          inputKey = Integer.parseInt(input);
-
-          if(inputKey < 1 || inputKey > 4){
-            logger.printPlayerChoiceOutOfRange();
-            continue;
-          }
-          break;
-        }
-      }
-      catch(NumberFormatException err){
-        logger.printTypeError();
-        continue;
-      }
-    }
-
-    if(inputKey == 1){
-      checkStatus(player, enemy);
-    }
-    else if(inputKey == 2){
-      basicAttack(player, enemy);
-    }
-    else if(inputKey == 3){
-      magicAttack(player, enemy);
-    }
-    else {
-      heal(player);
-    }
+  private void heal(Player player) {
+    int healAmount = random.nextInt(6) + 5;
+    player.increaseHp(healAmount);
+    logger.printPlayerHp(player.getHp());
   }
 }

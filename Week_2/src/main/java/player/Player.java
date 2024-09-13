@@ -3,22 +3,33 @@ package player;
 import utils.NumberEnum;
 
 public class Player {
-  public int hp = NumberEnum.PLAYER_HP.getAmount();
-  public int attackPower = NumberEnum.PLAYER_ATTACK_POWER.getAmount();
-  public int magicPower = NumberEnum.PLAYER_MAGIC_POWER.getAmount();
+  private int hp = NumberEnum.PLAYER_HP.getAmount();
+  private int attackPower = NumberEnum.PLAYER_ATTACK_POWER.getAmount();
+  private int magicPower = NumberEnum.PLAYER_MAGIC_POWER.getAmount();
 
-  public void addPoint(int hp, int attackPower, int magicPower) {
-    this.hp += 3 * hp;
-    this.attackPower += attackPower;
-    this.magicPower += magicPower;
+  public void addPoint(int hpPoints, int attackPoints, int magicPoints) {
+    this.hp += 3 * hpPoints;
+    this.attackPower += attackPoints;
+    this.magicPower += magicPoints;
   }
 
-  public void decreaseHp(int damage){
-    this.hp -= damage;
-    if(this.hp < 0) this.hp = 0;
+  public void decreaseHp(int damage) {
+    this.hp = Math.max(this.hp - damage, 0);
   }
 
-  public void increaseHp(int hp){
+  public void increaseHp(int hp) {
     this.hp += hp;
+  }
+
+  public int getHp() {
+    return hp;
+  }
+
+  public int getAttackPower() {
+    return attackPower;
+  }
+
+  public int getMagicPower() {
+    return magicPower;
   }
 }
