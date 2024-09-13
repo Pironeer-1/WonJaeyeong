@@ -9,13 +9,13 @@ public enum NumberEnum {
   ENEMY_DEFENSE_POWER(7),
   ENEMY_MAGIC_DEFENSE(7);
 
-
   private final int amount;
-  NumberEnum(int amount){
+
+  NumberEnum(int amount) {
     this.amount = amount;
   }
 
-  public int getAmount(){
+  public int getAmount() {
     return amount;
   }
 }
