@@ -1,5 +1,7 @@
-# practice2
+# 피로니어 3기 3번째 과제
 
-2주차 세션 실습(게시판 CRUD) 코드입니다.
-
-[세션 자료](https://even-channel-ff2.notion.site/SpringBoot-463dd998b6984ed6a9af61f3c104a5be?pvs=4)
+[ ] 2주차 세션 실습(게시판 CRUD) - 목록조회, 수정, 삭제   
+[ ] 댓글 기능 구현   
+[ ] 대댓글 기능 구현   
+[ ] 댓글, 대댓글 erd 그리기   
+[ ] 댓글, 대댓글 swagger 화면 캡쳐하기
