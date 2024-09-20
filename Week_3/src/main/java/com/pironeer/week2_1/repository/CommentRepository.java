@@ -32,7 +32,7 @@ public class CommentRepository {
   }
 
   public void deleteById(Long id) {
-    Assert.notNull(id, "ID MUST NOT BE NULL");
+    Assert.notNull(id, "ID는 비어있으면 안됩니다.");
     commReplyRepository.deleteAllByCommentId(id);
     commentMap.remove(id);
   }
@@ -42,7 +42,7 @@ public class CommentRepository {
   }
 
   public void deleteAllByTopicId(Long topicId) {
-    Assert.notNull(topicId, "Comment ID MUST NOT BE NULL");
+    Assert.notNull(topicId, "대댓글 ID는 비어있으면 안됩니다.");
 
     Iterator<Map.Entry<Long, Comment>> iterator = commentMap.entrySet().iterator();
     while (iterator.hasNext()) {
