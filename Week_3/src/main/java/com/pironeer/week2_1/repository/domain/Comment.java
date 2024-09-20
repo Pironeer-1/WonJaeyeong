@@ -16,7 +16,7 @@ public class Comment {
   private Long id;
   private Long topicId;
   private String content;
-  private LocalDateTime createdAt; // 추가된 필드
+  private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
 
   @Builder
@@ -24,7 +24,7 @@ public class Comment {
     this.id = id;
     this.topicId = topicId;
     this.content = content;
-    this.createdAt = createdAt; // 추가된 필드 초기화
+    this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
 }
