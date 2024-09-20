@@ -36,7 +36,7 @@ public class CommReplyRepository {
   }
 
   public void deleteAllByCommentId(Long commentId) {
-    Assert.notNull(commentId, "Comment ID MUST NOT BE NULL");
+    Assert.notNull(commentId, "대댓글 ID는 공란일 수 없습니다.");
 
     Iterator<Map.Entry<Long, CommReply>> iterator = commReplyMap.entrySet().iterator();
     while (iterator.hasNext()) {

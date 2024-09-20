@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 public class Comment {
   private Long id;
-  private Long topicId; // Topic의 id와 연관되는 필드
+  private Long topicId;
   private String content;
   private LocalDateTime updatedAt;
 

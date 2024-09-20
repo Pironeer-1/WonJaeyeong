@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 public class CommReply {
   private Long id;
-  private Long commentId; // Topic의 id와 연관되는 필드
+  private Long commentId;
   private String content;
   private LocalDateTime updatedAt;
 
