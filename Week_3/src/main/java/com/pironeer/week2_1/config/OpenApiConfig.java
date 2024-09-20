@@ -11,8 +11,8 @@ import org.springframework.context.annotation.Configuration;
                 description = "API 명세서",
                 version = "v1",
                 contact = @Contact(
-                        name = "양원채",
-                        email = "ywonchae62@gmail.com"
+                        name = "원재영",
+                        email = "devlog.jae13@gmail.com"
                 )
         )
 )
